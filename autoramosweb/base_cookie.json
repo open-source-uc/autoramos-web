@@ -1,0 +1,5 @@
+[
+    {"domain": "ssb.uc.cl", "httpOnly": false, "name": "SESSID", "path": "/ERPUC", "secure": false, "value": "set"
+    },
+    {"domain": "ssb.uc.cl", "httpOnly": false, "name": "TESTID", "path": "/ERPUC", "secure": false, "value": "set"}
+]

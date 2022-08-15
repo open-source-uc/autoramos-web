@@ -1,0 +1,17 @@
+figure.profile {
+    display: inline-block;
+    width: 180px;
+    background-color: white;
+    margin: .5rem;
+}
+
+figure.profile > figcaption{
+    text-align: center;
+    color: black;
+  }
+
+.github-image {
+    width: 150px;
+    padding-top: 1rem;
+    padding-bottom: .5rem;
+}

@@ -1,0 +1,34 @@
+{% extends 'autoramos/base.html' %}
+
+{% block title %}FAQ{% endblock title %}
+
+{% block body %}
+<!-- Header-->
+<header class="masthead d-flex align-items-center">
+    <div class="container px-4 px-lg-5 text-center">
+        <h1 class="mb-1">¿Cómo funciona Autoramos-web?</h1>
+        <ol class="list-group list-group-flush rounded">
+            <li class="list-group-item">
+                <p class="mb-4">El primer paso es registrarse con el mail utilizado para reservar cupos en autoramos-web. Los demás datos corresponden a las credenciales UC.</p>
+            </li>
+        
+            <li class="list-group-item">
+                <p class="mb-4">Luego hay que hacer login y dirigirse a la pantalla de reserva.</p>
+            </li>
+
+            <li class="list-group-item">
+                <p class="mb-4">En la página de reserva hay que llenar los datos con los correspondientes a la toma de ramos. En fecha y hora hay que indicarle al bot de autoramos cuando tomar lo ramos. En la sección de los NRC hay que rellenar al menos uno, con un máximo de tres. Los NRC 4, 5 y 6 corresponden a los reemplazos en caso de que fallen los NRC 1, 2 y 3 respectivamente.</p>
+            </li>
+
+            <li class="list-group-item">
+                <p class="mb-4">Después serás redirigido a la pantalla del estado de la toma de ramos. Es importante mencionar que cualquier actualización sobre la toma de ramos será notificada por mail a la dirección utilizada para el registro. Aquí se indicará si hay un error en la toma de ramos y se redigirá a una pantalla final en caso de éxito.</p>
+            </li>
+
+            <li class="list-group-item">
+                <p class="mb-4">Para dudas adicionales ver <a href="{% url 'faq' %}">FAQ</a></p>
+            </li>
+
+        </ol>
+    </div>
+</header>
+{% endblock body %}

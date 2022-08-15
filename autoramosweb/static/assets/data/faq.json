@@ -1,0 +1,18 @@
+[
+    {
+        "pregunta": "¿Dónde se almacenan las credenciales UC?",
+        "respuesta": "Al momento de registrarse con las credenciales UC, se autentica con la plataforma de la universidad y se obtiene una cookie de autenticación, nosotros interceptamos el valor de la cookie y lo guardamos. Haciendo esto, evitamos guardar las contraseñas, por lo que no las guardamos ni tenemos acceso a ellas."
+    },
+    {
+        "pregunta": "¿El mail de registro tiene que ser el mail UC?",
+        "respuesta": "No, el mail que pedimos en el registro es la dirección a la que te contactaremos en caso de cualquier evento. Puede ser cualquier dirección de mail válida."
+    },
+    {
+        "pregunta": "¿Se pueden reservar 3 o 6 NRCs?",
+        "respuesta": "Con autoramos reservaremos los primeros 3 NRCs que ingreses, en caso de que alguno de estos falle, se hará un segundo intento con el NRC de reemplazo equivalente. Por ejemplo, si falla la toma del NRC 1, se intentará nuevamente con el NRC 4."
+    },
+    {
+        "pregunta": "",
+        "respuesta": ""
+    }
+]

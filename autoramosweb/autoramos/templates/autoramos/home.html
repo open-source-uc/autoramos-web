@@ -1,0 +1,18 @@
+{% extends 'autoramos/base.html' %}
+
+{% block title %} Home {% endblock title %}
+
+{% block body %}
+<!-- Header-->
+<header class="masthead d-flex align-items-center">
+    <div class="container px-4 px-lg-5 text-center">
+        <h1 class="mb-1">Auto Ramos Web</h1>
+        <h3 class="mb-5"><em>Olvidate del estrés de tomar ramos y déjaselo a un bot</em></h3>
+        {% if user.is_authenticated %}
+            <a class="btn btn-primary btn-xl" href="{% url 'reserva_ramos' %}">Empezar</a>
+        {% else %}
+            <a class="btn btn-primary btn-xl" href="{% url 'register' %}">Empezar</a>
+        {% endif %}
+    </div>
+</header>
+{% endblock body %}

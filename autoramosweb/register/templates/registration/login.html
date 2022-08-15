@@ -1,0 +1,19 @@
+{% extends "autoramos/base.html" %}
+
+{% block title %} Login {% endblock %}
+
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+<header class="masthead d-flex align-items-center">
+    <div class="container px-4 px-lg-5 text-center">
+        <h1>Login</h1>
+        <form method="POST" class="form-group">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success">Login</button>
+        </form>
+    </div>
+</header>
+{% endblock %}

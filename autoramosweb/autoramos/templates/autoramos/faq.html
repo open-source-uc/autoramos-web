@@ -1,0 +1,22 @@
+{% extends 'autoramos/base.html' %}
+
+{% block title %}FAQ{% endblock title %}
+
+{% block body %}
+<!-- Header-->
+<header class="masthead d-flex align-items-center">
+    <div class="container px-4 px-lg-5 text-center">
+        <ol class="list-group list-group-flush rounded">
+            <li class="list-group-item">
+                <h1 class="mb-1">FAQ</h1>
+            </li>
+        {% for qa in faq %}
+            <li class="list-group-item">
+                <h3 class="mb-1">{{ qa.pregunta }}</h3>
+                <p class="mb-4">{{ qa.respuesta }}</p>
+            </li>
+        {% endfor %}
+        </ol>
+    </div>
+</header>
+{% endblock body %}

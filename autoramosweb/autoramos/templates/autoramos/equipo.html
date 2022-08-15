@@ -1,0 +1,27 @@
+{% extends 'autoramos/base.html' %}
+
+{% block title %} Equipo {% endblock title %}
+
+{% block head %}
+{% load static %}
+<link href=" {% static 'css/autoramos.css' %} " rel="stylesheet" />
+{% endblock head %}
+
+{% block body %}
+<header class="masthead d-flex align-items-center">
+    <div class="container px-4 px-lg-5 text-center">
+        <h1 class="mb-1">Equipo</h1>
+        <br>
+        <div class="flex-container">
+            {% for member in equipo %}
+            <figure class="profile rounded">
+                <a href="https://github.com/{{ member.github_user }}" target="_blank">
+                    <img src="https://github.com/{{ member.github_user }}.png" class="github-image rounded">
+                </a>
+                <figcaption><h6>{{ member.name }}</h6></figcaption>
+            </figure>
+            {% endfor %}
+        </div>
+    </div>
+</header>
+{% endblock body %}

@@ -1,0 +1,101 @@
+{% extends 'autoramos/base.html' %}
+
+{% block title %}
+Estado de tu toma de cursos
+{% endblock %}
+{% block body %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    //Traduce valor estado a texto
+    function estadoDeToma(status){
+        var out;
+        if (status == 1){
+            out = "Toma de ramos agendada"
+        } else if (status == 2) {
+            out = "Toma de ramos en curso"
+        } else if (status == 3){
+            out = "Toma de ramos finalizada exitosamente"
+        } else{
+            out = "Ha ocurrido un error"
+        }
+        return out
+    }
+
+    //Polling cada 5 segundos para chequeo estado toma de ramos
+    setInterval(function () {
+        $.ajax({
+            url: "/reserva/confirmacion/",
+            type: 'POST',
+            data: {
+                'check': true,
+                csrfmiddlewaretoken: '{{csrf_token}}' 
+            },
+
+            /* En el caso de ser exitoso, inyecta 
+            html para comunicar estado toma de tamos*/
+            success: function (status) {
+                var data = status['data']
+                if (data !== 3){
+                    $('#estado').html("\
+                    <div>\
+                    " + estadoDeToma(data["estado_toma"]) + "\
+                    </div>\
+                    ");           
+                    console.log(data);
+                    $('#class_content').html("\
+                        <div class='container px-4 px-lg-5 text-center'>\
+                            <p>\
+                                <b>"+ data['hora_agendada'] +"</b>\
+                            </p>\
+                            <div class='row'>\
+                                <h3>Tu selección de ramos</h3>\
+                            </div>\
+                            <div class='row'>\
+                                <p class='col-sm'> <b>NRC1:</b>"+ data['nrc1'] +"</p>\
+                                <p class='col-sm'> <b>NRC2:</b>"+ data['nrc2'] +"</p>\
+                                <p class='col-sm'> <b>NRC3:</b>"+ data['nrc3'] +"</p>\
+                            </div>\
+                            <div class='row'>\
+                                <p class='col-sm'> <b>NRC4:</b>"+ data['nrc4'] +"</p>\
+                                <p class='col-sm'> <b>NRC5:</b>"+ data['nrc5'] +"</p>\
+                                <p class='col-sm'> <b>NRC6:</b>"+ data['nrc6'] +"</p>\
+                            </div>\
+                        </div>\
+                    ");
+                } else {
+                    $('#estado').html("\
+                    <h1>\
+                    " + estadoDeToma(data["estado_toma"]) + "\
+                    </h1>\
+                    ");           
+                    console.log(data);
+                    $('#class_content').html("\
+                        <div>\
+                            <p>Gracias por usar autoramosweb!</p>\
+                        </div>\
+                    ");
+                }
+            }
+        });
+    }, 5000);
+
+</script>
+<header class="masthead d-flex align-items-center">
+    <div class="container px-4 px-lg-5 text-center">
+        <h2> Ya queda poco... </h2>
+
+        <div id="estado">
+            <div class="spinner-border" role="status">
+                <span class="sr-only"> Loading... </span>
+            </div>
+        </div>
+        <br></br>
+        <div id="class_content">
+        </div>
+        <div>
+            <a href="{% url 'editar_planner' %}" class="btn btn-primary">Editar reserva</a>
+        </div>
+    </div>
+</header>
+{% endblock %} 
+
