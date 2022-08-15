@@ -1,0 +1,106 @@
+version: '3'
+
+#Services
+services:
+  pgdb:
+    image: postgres
+    container_name: pgdb
+    volumes: 
+      [pgdata:/var/lib/postgresql/data]
+    networks:
+      - autoramos-net
+    environment: 
+      - POSTGRES_DB=autoramosweb
+      - POSTGRES_USER=""
+      - POSTGRES_PASSWORD=""
+
+  backend:
+    build:
+      context: ./autoramosweb
+      args:
+        #Django credentials for deployment: 
+        SECRET_KEY: ""
+    
+        #Postgres (Change credentials for deployment): 
+        POSTGRES_TABLE_NAME: autoramosweb
+        POSTGRES_USER: ""
+        POSTGRES_PASSWORD: ""
+        POSTGRES_HOST: pgdb
+        POSTGRES_PORT: 5432
+
+        DEBUG: 0
+        HTTPS: 1
+
+        #Cambiar credenciales en deployment
+        EMAIL_HOST: "smtp-relay.sendinblue.com"
+        EMAIL_PORT: 587
+        EMAIL_HOST_USER: ""
+        EMAIL_HOST_PASSWORD: ""
+
+        CELERY_BROKER_URL: rabbitmq
+        SELENIUM_REMOTE_URL: selenium
+
+    ports: 
+      - "8000:8000"
+    networks:
+      - autoramos-net
+
+    volumes:
+      - django_build:/django/staticfiles
+    depends_on:
+      - pgdb
+      - rabbitmq
+      - selenium
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: 'rabbitmq'
+    #Cambiar credenciales en deployment
+    environment:
+    - RABBITMQ_DEFAULT_USER=""
+    - RABBITMQ_DEFAULT_PASS=""
+    ports:
+        # AMQP protocol
+        - 5672:5672
+        # Management UI
+        - 15672:15672
+    volumes:
+      #Data
+    - rabbit:/var/
+    - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+    networks:
+      - autoramos-net
+    logging:
+      driver: none
+
+  selenium:
+    image: selenium/standalone-chrome
+    environment:
+      - SE_NODE_MAX_SESSIONS=5
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+    networks:
+      - autoramos-net
+    ports:
+      - "4444:4444"
+
+  nginx:
+    image: nginx:latest
+    ports: 
+      ["80:8080", "443:443"]
+    networks:
+      - autoramos-net
+    volumes:
+      - ./nginx/nginx-proxy.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/ssl-certificates:/etc/ssl/ssl-certificates
+      - django_build:/var/www/static
+    depends_on:
+      - backend
+  
+volumes:
+  django_build:
+  pgdata:
+  rabbit:
+  
+networks:
+  autoramos-net:
+    external: true
