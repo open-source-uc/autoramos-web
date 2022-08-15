@@ -1,0 +1,11 @@
+django==4.0.5
+django-crispy-forms==1.14.0
+celery==5.2.7
+twill==3.0.2
+psycopg2-binary==2.9.3
+django-celery-beat==2.3.0
+selenium==4.3.0
+imageio==2.19.5
+numpy==1.23.1
+Pillow==9.2.0
+beautifulsoup4==4.11.1
